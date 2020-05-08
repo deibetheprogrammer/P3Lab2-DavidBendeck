@@ -19,6 +19,9 @@ int MCD(int,int);
 //Funcion para generar el triangulo de Pascal
 void Pascal(int);
 
+//Funcion para el juego del arreglo
+void Juego(int); 
+
 int main(int argc, char** argv) {
 	
 	//Llamada al menu
@@ -26,6 +29,7 @@ int main(int argc, char** argv) {
 	
 	switch(choice) {
 		case 1: {
+			cout << "funcion indicatriz de Euler: " << "\n";
 			cout << "Ingrese un numero entero mayor a 0 por favor: ";
 			int number;
 			cin >> number;
@@ -49,6 +53,7 @@ int main(int argc, char** argv) {
 			break;
 		}
 		case 2: {
+			cout << "Triangulo de Pascal: " << "\n";
 			cout << "Ingrese un numero de filas por favor: ";
 			int number;
 			cin >> number;
@@ -69,7 +74,24 @@ int main(int argc, char** argv) {
 			break;
 		}
 		case 3: {
+			cout << "Ingrese un numero par positivo por favor: ";
 			
+			int number;
+			cin >> number;
+
+			// User types any char or string of length < 100
+
+			// Because input stream is in a failed state, cin will be evaluated to false
+			while ( !cin || number < 0 || (number%2) != 0)
+			{
+    			cin.clear ();    // Restore input stream to working state
+    			cin.ignore ( 100 , '\n' );    // Get rid of any garbage that user might have entered
+    			cout << "Ingrese un par positivo por favor: ";
+    			cin >> number;    // After cin is restored and any garbage in the stream has been cleared, store user input in number again
+			}
+			
+			//Llamamos a la funcion del juego
+			Juego(number); 
 			break;
 		}
 		
@@ -181,4 +203,90 @@ void Pascal(int n) {
 	
 	cout << "\n";
 }
+
+void Juego(int n) {
+	
+	//Puntaje de los jugadores
+	int scoreP1 = 0;
+	int scoreP2 = 0;
+	
+	//Llenamos el arreglo con numeros random
+	srand(time(NULL));
+	
+	int array [n] {};
+	int usado [n] {};
+	
+	for(int i = 0; i < n; i++) {
+		array[i] = (-50) + rand() % (51 + 50);
+		usado[i] = array[i];
+	}
+	
+	//Comienza el juego
+	int turnos = n/2;
+	int number = 0;
+	
+	for(int i = 0; i < turnos; i++) {
+		
+		//TURNO DEL P1 *************************************************************
+		cout << "El P1 escoje: ";
+			
+		cin >> number;
+
+		// Because input stream is in a failed state, cin will be evaluated to false
+		// Elijo 77 como bandera para determinar si la casilla ya fué seleccionada
+		while ( !cin || (number < 0 || number >= n) || (array[number]) == 77)
+		{
+    		cin.clear ();    // Restore input stream to working state
+    		cin.ignore ( 100 , '\n' );    // Get rid of any garbage that user might have entered
+    		cout << "Ingrese una posicion valida por favor, recuerde tampoco elegir posiciones ya tomadas: ";
+    		cin >> number;    // After cin is restored and any garbage in the stream has been cleared, store user input in number again
+		}
+		
+		cout << "Obtuvo: " << array[number] << "\n";
+		scoreP1 += array[number];
+		array[number] = 77;
+		
+		//TURN0 DEL P2 ***************************************************************
+		cout << "El P2 escoje: ";
+			
+		cin >> number;
+
+		// Because input stream is in a failed state, cin will be evaluated to false
+		// Elijo 77 como bandera para determinar si la casilla ya fué seleccionada
+		while ( !cin || (number < 0 || number >= n) || (array[number]) == 77)
+		{
+    		cin.clear ();    // Restore input stream to working state
+    		cin.ignore ( 100 , '\n' );    // Get rid of any garbage that user might have entered
+    		cout << "Ingrese una posicion valida por favor, recuerde tampoco elegir posiciones ya tomadas: ";
+    		cin >> number;    // After cin is restored and any garbage in the stream has been cleared, store user input in number again
+		}
+		
+		cout << "Obtuvo: " << array[number] << "\n";
+		scoreP2 += array[number];
+		array[number] = 77;
+		
+		//FIN DE RONDA *******************************************************************
+		cout << "\n\n"
+			 <<	"Ronda " << i << " - " << "[PTS P1: " << scoreP1
+			 << " <-> " 
+			 << "PTS P2: " << scoreP2 << "] " 
+			 <<"\n\n";
+	}
+	
+	cout << "FIN DE LA PARTIDA" << "\n\n";
+	
+	if(scoreP1 > scoreP2) {
+		cout << "GANA P1!" << "\n\n";
+	}
+	else if(scoreP2 > scoreP1) {
+		cout << "GANA P2!" << "\n\n";
+	}
+	else {
+		cout << "Empate!" << "\n\n";
+	}
+	
+	cout << "Arreglo usado: " << usado;
+}
+
+
 
