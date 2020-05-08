@@ -1,18 +1,83 @@
 #include <iostream>
 #include<time.h>
 #include<stdlib.h>
+#include<vector>
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
-using std::cout
-using std::cin
+using std::cout;
+using std::cin;
 
-int Menu()
-int Euler(int)
-int MCD(int,int)
+//Menu
+int Menu();
+
+//Retorna "Fi" 
+int Euler(int);
+
+//Retorna el MCD de a y b
+int MCD(int,int);
+
+//Funcion para generar el triangulo de Pascal
+void Pascal(int);
 
 int main(int argc, char** argv) {
 	
+	//Llamada al menu
 	int choice = Menu();
+	
+	switch(choice) {
+		case 1: {
+			cout << "Ingrese un numero entero mayor a 0 por favor: ";
+			int number;
+			cin >> number;
+
+			// User types any char or string of length < 100
+
+			// Because input stream is in a failed state, cin will be evaluated to false
+			while ( !cin || number < 1 )
+			{
+    			cin.clear ();    // Restore input stream to working state
+    			cin.ignore ( 100 , '\n' );    // Get rid of any garbage that user might have entered
+    			cout << "Ingrese un numero entero mayor a 0 por favor: ";
+    			cin >> number;    // After cin is restored and any garbage in the stream has been cleared, store user input in number again
+			}
+			
+			//Imprimimos el resultado
+			int euler = Euler(number);
+			cout << "El resultado de llamar la funcion indicatriz de Euler con "
+				 << number <<" es : "
+				 << euler;
+			break;
+		}
+		case 2: {
+			cout << "Ingrese un numero de filas por favor: ";
+			int number;
+			cin >> number;
+
+			// User types any char or string of length < 100
+
+			// Because input stream is in a failed state, cin will be evaluated to false
+			while ( !cin || number < 1 )
+			{
+    			cin.clear ();    // Restore input stream to working state
+    			cin.ignore ( 100 , '\n' );    // Get rid of any garbage that user might have entered
+    			cout << "Ingrese un numero entero mayor a 0 por favor: ";
+    			cin >> number;    // After cin is restored and any garbage in the stream has been cleared, store user input in number again
+			}
+			
+			//imprimimos el resultado
+			
+			break;
+		}
+		case 3: {
+			
+			break;
+		}
+		
+		case 4: {
+			cout << "Saliendo de la aplicacion ...";
+			break;
+		}
+	}
 	
 	return 0;
 	
@@ -44,6 +109,7 @@ int Menu() {
 }
 
 int MCD(int a, int b) {
+	
 	if(b == 1) {
 		return 1;
 	}
@@ -61,6 +127,45 @@ int MCD(int a, int b) {
 		}
 		else {
 			return a;
+		}
+	}
+}
+
+int Euler(int m) {
+	
+	int fi = 0;
+	
+	//Obtenemos el resultado de fi
+	for(int n = 1; n <= m; n++) {
+		if(MCD(m,n) == 1) {
+			fi++;
+		}
+	}
+	
+	return fi;
+}
+
+void Pascal(int n) {
+
+	//Vectores para contener la linea actual y la linea anterior
+	std::vector<int> anterior;
+	std::vector<int> actual;
+
+	std::string linea = "";
+
+	for (int i = 0; i < n; i++) {
+		
+		std::string linea = "";
+		anterior = actual;
+		actual.clear();
+		
+		for (int j = 0; j <= i; j++) {
+			
+			if (j == 0 || j == i) {
+				
+				actual.push_back(1);
+			}
+			
 		}
 	}
 }
