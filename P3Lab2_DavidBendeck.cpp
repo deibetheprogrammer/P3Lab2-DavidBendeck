@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
 			}
 			
 			//imprimimos el resultado
-			
+			Pascal(number);
 			break;
 		}
 		case 3: {
@@ -150,23 +150,35 @@ void Pascal(int n) {
 	//Vectores para contener la linea actual y la linea anterior
 	std::vector<int> anterior;
 	std::vector<int> actual;
-
-	std::string linea = "";
-
+	
+	//Para imprimir el triangulo
 	for (int i = 0; i < n; i++) {
 		
 		std::string linea = "";
 		anterior = actual;
 		actual.clear();
 		
+		//Para determinar la linea actual
 		for (int j = 0; j <= i; j++) {
 			
 			if (j == 0 || j == i) {
-				
 				actual.push_back(1);
 			}
+			else {
+				actual.push_back((anterior[j-1] + anterior[j]));
+			}
 			
+			linea = linea + std::to_string(actual [j]) + ",";
 		}
+		
+		//Elimino la "," sobrante
+		//cout << actual.size() << " size actual \n";
+		//cout << linea.size() << " size linea \n";
+		linea.pop_back();
+		linea = linea + "\n";
+		cout << linea;
 	}
+	
+	cout << "\n";
 }
 
