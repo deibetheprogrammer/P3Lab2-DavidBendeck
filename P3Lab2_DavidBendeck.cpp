@@ -24,8 +24,13 @@ void Juego(int);
 
 int main(int argc, char** argv) {
 	
+	int choice = 7;
+	
+	while(choice != 4) {
+	
+	
 	//Llamada al menu
-	int choice = Menu();
+	choice = Menu();
 	
 	switch(choice) {
 		case 1: {
@@ -49,7 +54,8 @@ int main(int argc, char** argv) {
 			int euler = Euler(number);
 			cout << "El resultado de llamar la funcion indicatriz de Euler con "
 				 << number <<" es : "
-				 << euler;
+				 << euler
+				 << "\n\n";
 			break;
 		}
 		case 2: {
@@ -71,6 +77,7 @@ int main(int argc, char** argv) {
 			
 			//imprimimos el resultado
 			Pascal(number);
+			cout << "\n\n";
 			break;
 		}
 		case 3: {
@@ -98,9 +105,10 @@ int main(int argc, char** argv) {
 		case 4: {
 			cout << "Saliendo de la aplicacion ...";
 			break;
+			break;
 		}
 	}
-	
+	}
 	return 0;
 	
 }
@@ -267,7 +275,7 @@ void Juego(int n) {
 		
 		//FIN DE RONDA *******************************************************************
 		cout << "\n\n"
-			 <<	"Ronda " << i << " - " << "[PTS P1: " << scoreP1
+			 <<	"Ronda " <<i+1<< " - " << "[PTS P1: " << scoreP1
 			 << " <-> " 
 			 << "PTS P2: " << scoreP2 << "] " 
 			 <<"\n\n";
@@ -285,7 +293,16 @@ void Juego(int n) {
 		cout << "Empate!" << "\n\n";
 	}
 	
-	cout << "Arreglo usado: " << usado;
+	std::string arreglo = "[ ";
+	cout << "Arreglo usado: " << "\n";
+	for(int i = 0; i < n; i++) {
+		arreglo = arreglo + std::to_string(usado[i]) + ",";
+	}
+	arreglo.pop_back();
+	arreglo = arreglo + " ]";
+	cout << arreglo
+		 << "\n\n";
+	
 }
 
 
